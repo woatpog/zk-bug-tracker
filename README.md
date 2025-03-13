@@ -2032,9 +2032,9 @@ See the references below for more details on toxic waste and how trusted setups 
 
 ## <a name="assigned-not-constrained">8. Assigned but not Constrained</a>
 
-A very common bug and misunderstanding is the difference between assignments and constraints. For zk circuits, constraints are the mathematical equations that must be satisfied by any given inputs for a proof to be valid. If any of the inputs result in one of the constraint equations to be incorrect, a valid proof is not possible (well, extremely unlikely).
+A very common bug and misunderstanding is the difference between assignments and constraints. For zk circuits, constraints are the mathematical equations that must be satisfied by any given inputs for a proof to be valid. If any of the inputs result in one of the constraint equations being incorrect, a valid proof is not possible (well, extremely unlikely).
 
-Assignments, on the other hand, simply assign a value to a variable during proof generation. Assignments do not have to be followed for a valid proof to be created. Often times, an assignment can be used, in combination with other constraints, to reduce the total number of constraints used.
+Assignments, on the other hand, simply assign a value to a variable during proof generation. Assignments do not have to be followed for a valid proof to be created. Oftentimes, an assignment can be used, in combination with other constraints, to reduce the total number of constraints used.
 
 Constraints actually add equations to the R1CS file whereas assignments do not.
 
