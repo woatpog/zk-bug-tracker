@@ -398,34 +398,31 @@ require(zero < SNARK_SCALAR_FIELD, "IncrementalBinaryTree: leaf must be < SNARK_
 1. [Reported Github Issue](https://github.com/privacy-scaling-explorations/zk-kit/issues/23)
 2. [Commit of the Fix](https://github.com/privacy-scaling-explorations/zk-kit/pull/24)
 
-## <a name="aztec-1">6. Aztec 2.0: Missing Bit Length Check / Nondeterministic Nullifier</a>
+### 6. Aztec 2.0: Missing Bit Length Check / Nondeterministic Nullifier
 
-**Summary**
+#### Summary
+**Related Vulnerabilities**: 
+1. Under-constrained Circuits
+2. Nondeterministic Circuits
+3. Mismatching Bit Lengths
 
-Related Vulnerabilities: 1. Under-constrained Circuits, 2. Nondeterministic Circuits, 4. Mismatching Bit Lengths
-
-Identified By: [Aztec Team](https://aztec.network/)
+**Identified By**: Aztec Team
 
 Funds in the Aztec protocol are held in what are called “note commitments”. Once a note commitment is spent, it should not be possible to spend it again. However, due to a missing bit length check, an attacker could spend a single note commitment multiple times.
 
-**Background**
+#### Background
+Whenever a new note commitment is created, it is stored in a Merkle tree on-chain. To prevent double spending of a single note commitment, a nullifier is posted on-chain after the note is spent. If the nullifier was already present on-chain, then the note cannot be spent.
 
-Whenever a new note commitment is created, it is stored in a merkle tree on-chain. In order to prevent double spending of a single note commitment, a nullifier is posted on-chain after the note is spent. If the nullifier was already present on-chain, then the note cannot be spent.
-
-**The Vulnerability**
-
-The nullifier generation process should be deterministic so that the same nullifier is generated for the same note commitment every time. However, due to a missing bit length check, the process was not deterministic. The nullifier was generated based on the note commitment index in the merkle tree. The code assumed the index to be a 32 bit number, but there was no constraint enforcing this check.
+#### The Vulnerability
+The nullifier generation process should be deterministic so that the same nullifier is generated for the same note commitment every time. However, due to a missing bit length check, the process was not deterministic. The nullifier was generated based on the note commitment index in the Merkle tree. The code assumed the index to be a 32-bit number, but there was no constraint enforcing this check.
 
 An attacker could use a number larger than 32 bits for the note index, as long as the first 32 bits matched the correct index. Since they can generate many unique numbers that have the same first 32 bits, a different nullifier will be created for each number. This allows them to spend the same note commitment multiple times.
 
-**The Fix**
+#### The Fix
+A bit length check was needed on the given note commitment index to enforce that it was at most 32 bits.
 
-A bit length check was needed on the given note commitment index to enforce that it was at max 32 bits.
-
-**References**
-
-1. [Aztec Bug Disclosure](https://hackmd.io/@aztec-network/disclosure-of-recent-vulnerabilities)
-
+#### References
+Aztec Bug Disclosure
 ## <a name="aztec-2">7. Aztec Plonk Verifier: 0 Bug</a>
 
 **Summary**
