@@ -2017,7 +2017,7 @@ As explained in the TrailOfBits’ explanation (linked in the references below),
 
 ## <a name="trusted-setup-leak">7. Trusted Setup Leak</a>
 
-Many popular zk protocols require what is known as a trusted setup. The trusted setup is used to generate the parameters necessary for a prover to create sound zk proofs. However, the setup also involves parameters that need to be hidden to everyone. These are known as "toxic waste". If the toxic waste is revealed to a party, then they would be able to forge zk proofs for that system. The toxic waste is usually kept private in practice through the use of multi-party computation.
+Many popular zk protocols require what is known as a trusted setup. The trusted setup is used to generate the parameters necessary for a prover to create sound zk proofs. However, the setup also involves parameters that need to be hidden from everyone. These are known as "toxic waste". If the toxic waste is revealed to a party, then they would be able to forge zk proofs for that system. The toxic waste is usually kept private in practice through the use of multi-party computation.
 
 Older zk protocols such as Pinocchio and Groth16 require a new trusted setup for each unique circuit. This creates problems whenever a project needs to update their circuits because then they would need to redo the trusted setup. Newer protocols such as MARLIN and PLONK still require a trusted setup, but only once. These protocols' setup is known as "universal" since it can be used for multiple programs, making upgrades much easier. Other protocols such as Bulletproofs and STARKs do not require trusted setups at all.
 
